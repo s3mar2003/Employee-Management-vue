@@ -13,9 +13,6 @@
           alt="Welcome" 
           class="w-32 h-32 rounded-full object-cover border-4 border-white/30 shadow-lg animate-bounce-slow group-hover:scale-105 transition-transform"
         />
-        <!-- <div class="absolute -bottom-2 -right-2 bg-yellow-400 text-gray-900 rounded-full px-3 py-1 text-xs font-bold shadow-md">
-          Admin
-        </div> -->
       </div>
     </div>
 
@@ -30,21 +27,21 @@
       />
       <DashboardCard 
         title="On Leave" 
-        value="5" 
+        :value="leaves.length" 
         icon="event_busy" 
         iconColor="text-amber-500"
         bgColor="bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-900/30 dark:to-amber-800/30"
       />
       <DashboardCard 
         title="Departments" 
-        value="6" 
+        :value="departmentsCount" 
         icon="apartment" 
         iconColor="text-emerald-500"
         bgColor="bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-900/30 dark:to-emerald-800/30"
       />
       <DashboardCard 
         title="Pending Requests" 
-        value="3" 
+        :value="pendingRequests" 
         icon="notifications_active" 
         iconColor="text-rose-500"
         bgColor="bg-gradient-to-br from-rose-50 to-rose-100 dark:from-rose-900/30 dark:to-rose-800/30"
@@ -96,7 +93,7 @@
         <!-- Table for larger screens -->
         <div class="hidden sm:block overflow-x-auto">
           <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead class="bg-white text-black ">
+            <thead class="bg-white text-black">
               <tr>
                 <th class="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">Employee</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider">Activity</th>
@@ -146,27 +143,40 @@
 </template>
 
 <script setup>
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import DashboardCard from '@/components/DashboardCard.vue'
 import MonthlyHiringChart from '@/components/MonthlyHiringChart.vue'
-import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 const employees = ref([])
+const leaves = ref([])
 const activities = ref([])
 const storageWatcher = ref(null)
+
+const departmentsCount = computed(() => {
+  const unique = new Set(employees.value.map(e => e.department))
+  return unique.size
+})
+
+const pendingRequests = computed(() => {
+  return leaves.value.filter(leave => leave.status === 'pending').length
+})
 
 function loadEmployees() {
   const stored = localStorage.getItem('employees')
   employees.value = stored ? JSON.parse(stored) : []
 }
 
+function loadLeaves() {
+  const stored = localStorage.getItem('leaves')
+  leaves.value = stored ? JSON.parse(stored) : []
+}
+
 function loadActivities() {
   const storedActs = localStorage.getItem('activities')
   const allActivities = storedActs ? JSON.parse(storedActs) : []
-  
   const sortedActivities = [...allActivities].sort((a, b) => 
     new Date(b.timestamp || b.date) - new Date(a.timestamp || a.date)
   )
-  
   activities.value = sortedActivities.slice(0, 5)
 }
 
@@ -214,17 +224,20 @@ function formatDate(dateString) {
 function setupStorageWatcher() {
   storageWatcher.value = setInterval(() => {
     loadEmployees()
+    loadLeaves()
     loadActivities()
   }, 1000) 
 }
 
 onMounted(() => {
   loadEmployees()
+  loadLeaves()
   loadActivities()
   setupStorageWatcher()
   
   window.addEventListener('storage', () => {
     loadEmployees()
+    loadLeaves()
     loadActivities()
   })
 })

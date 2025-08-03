@@ -1,8 +1,8 @@
 <template>
   <div class="bg-primary shadow rounded-xl p-4 flex items-center space-x-4">
     <div
-      class="text-4xl p-3 bg-peimary rounded-full"
-      :class="iconColor"
+      class="text-4xl p-3 rounded-full"
+      :class="[iconColor, bgColor]"
     >
       <span class="material-icons">{{ icon }}</span>
     </div>
@@ -18,6 +18,7 @@ defineProps({
   title: String,
   value: [String, Number],
   icon: String,
-  iconColor: String
+  iconColor: String,
+  bgColor: String
 })
 </script>
