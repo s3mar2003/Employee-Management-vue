@@ -24,7 +24,7 @@ const chartData = ref({
   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   datasets: [{
     label: 'New Employees',
-    data: [3, 5, 2, 8, 6, 4, 7, 3, 5, 2, 6, 4],  // بيانات ثابتة للتجربة
+    data: [3, 5, 2, 8, 6, 4, 7, 3, 5, 2, 6, 4],  
     fill: true,
     backgroundColor: 'rgba(99, 102, 241, 0.2)',
     borderColor: 'rgba(99, 102, 241, 1)',

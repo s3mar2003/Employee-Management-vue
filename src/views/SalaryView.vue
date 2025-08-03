@@ -12,7 +12,7 @@
             v-model="searchQuery"
             type="text"
             placeholder="Search by name..."
-            class="w-full px-4 py-2 rounded-xl bg-white text-text border border-gray-300 focus:ring-4 focus:ring-blue-400/30 shadow-md transition-all duration-300"
+            class="w-full px-4 py-2 rounded-xl bg-primary text-text border border-gray-300 focus:ring-4 focus:ring-blue-400/30 shadow-md transition-all duration-300"
           />
         </div>
 
@@ -21,7 +21,7 @@
           <label class="block text-sm font-semibold text-text mb-1">Filter by Department</label>
           <select
             v-model="departmentFilter"
-            class="w-full px-4 py-2 rounded-xl bg-white text-text border border-gray-300 focus:ring-4 focus:ring-blue-400/30 shadow-md transition-all duration-300"
+            class="w-full px-4 py-2 rounded-xl bg-primary text-text border border-gray-300 focus:ring-4 focus:ring-blue-400/30 shadow-md transition-all duration-300"
           >
             <option value="">All Departments</option>
             <option v-for="dept in departments" :value="dept" :key="dept">
@@ -35,7 +35,7 @@
           <label class="block text-sm font-semibold text-text mb-1">Salary Range</label>
           <select
             v-model="salaryRangeFilter"
-            class="w-full px-4 py-2 rounded-xl bg-white text-text border border-gray-300 focus:ring-4 focus:ring-blue-400/30 shadow-md transition-all duration-300"
+            class="w-full px-4 py-2 rounded-xl bg-primary text-text border border-gray-300 focus:ring-4 focus:ring-blue-400/30 shadow-md transition-all duration-300"
           >
             <option value="">All Ranges</option>
             <option value="0-5000">0 - 5,000 SAR</option>
@@ -57,7 +57,7 @@
           class="w-full px-4 py-3 rounded-xl bg-white text-text border border-gray-300 focus:outline-none focus:ring-4 focus:ring-blue-400/30 shadow-md transition-all duration-300"
           required
         >
-          <option value="" disabled>Select Employee</option>
+          <option value=""  disabled>Select Employee</option>
           <option v-for="emp in employees" :key="emp.id" :value="emp.id">
             {{ emp.name }}
           </option>
@@ -154,7 +154,7 @@
     <!-- Edit Modal -->
     <div v-if="showEditModal" class="fixed inset-0 bg-primary/40 backdrop-blur-sm flex justify-center items-center p-4 z-50">
       <div class="bg-white p-6 rounded-xl max-w-md w-full shadow-lg relative">
-        <button class="absolute top-2 right-3 text-gray-400 hover:text-red-500 text-xl font-bold" @click="closeEdit">&times;</button>
+        <button class="absolute top-2 right-3 text-text hover:text-red-500 text-xl font-bold" @click="closeEdit">&times;</button>
         <h3 class="text-xl font-bold mb-4 text-text">Edit Salary</h3>
         <form @submit.prevent="saveEdited">
           <div class="mb-3">

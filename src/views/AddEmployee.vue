@@ -318,8 +318,8 @@ function onPhoneInput(e) {
 function submitForm() {
   if (!validateForm()) {
     notify({
-      title: "خطأ",
-      text: "الرجاء تصحيح الأخطاء",
+      title: "erorr",
+      text: "  please correct the erorr",
       type: "error",
       duration: 4000,
     })

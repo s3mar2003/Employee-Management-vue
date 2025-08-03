@@ -1,4 +1,5 @@
 <template>
+  
   <div class="flex min-h-screen overflow-x-hidden">
     <Sidebar :sidebarOpen="sidebarOpen" @close="sidebarOpen = false" />
 

@@ -1,7 +1,7 @@
 <template>
   <aside
   :class="[
-  'fixed top-0 left-0 max-h-full w-64 bg-primary bg-opacity-10 lg:bg-opacity-10 shadow-md p-4 flex flex-col justify-between transition-all duration-500 z-60 overflow-hidden',
+  'fixed top-0 left-0 max-h-full w-64 bg-primary bg-opacity-100 lg:bg-opacity-100 shadow-md p-4 flex flex-col justify-between transition-all duration-500 z-60 overflow-hidden',
   props.sidebarOpen ? 'translate-x-0' : '-translate-x-full',
   'lg:translate-x-0 lg:static lg:z-auto'
 ]"
@@ -18,12 +18,12 @@
     :key="index"
     :to="link.to"
     @click="$emit('close')"
-    class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-text group transition-all duration-300"
+    class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray/40 dark:hover:bg-gray-800 text-text group transition-all duration-300"
     :style="`transition-delay: ${index * 50 + 100}ms`"
   >
     <span class="material-symbols-rounded transition-all duration-500 group-hover:text-blue-600">
       {{ link.icon }}
-    </span>
+    </span >
     <span
       class="opacity-100 transition-opacity duration-500"
       :style="`transition-delay: ${index * 50 + 150}ms`"
@@ -34,7 +34,7 @@
 </nav>
 
 
-    <div class="mt-auto pt-4 border-t border-gray-300 dark:border-gray-700">
+    <!-- <div class="mt-auto pt-4 border-t border-gray-300 dark:border-gray-700">
       <router-link
         to="/settings"
         @click="$emit('close')"
@@ -43,7 +43,7 @@
         <span class="material-symbols-rounded text-base transition-transform group-hover:rotate-45">settings</span>
         <span class="opacity-0 lg:opacity-100 transition-opacity duration-500 delay-100">Settings</span>
       </router-link>
-    </div>
+    </div> -->
   </aside>
 </template>
 
